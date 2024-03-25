@@ -151,10 +151,7 @@ if SERVER then
 				--In case some other addons have something to say about us taking credits
 				local canTakeCredits = hook.Run("TTT2CanTakeCredits", owner, ent, false)
 
-				ServerLog(Format("TTT2CanTakeCredits hook returned %s\n", tostring(canTakeCredits)))
-
 				if canTakeCredits == nil then
-					ServerLog("canTakeCredits defaulting to true")
 					canTakeCredits = true
 				end
 
