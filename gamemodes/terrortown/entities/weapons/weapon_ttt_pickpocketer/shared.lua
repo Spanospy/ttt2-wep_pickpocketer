@@ -88,6 +88,11 @@ end
 function SWEP:PrimaryAttack()
 
 	local owner = self:GetOwner()
+	if not IsValid(owner) then
+		return
+	end
+
+	owner:LagCompensation(true)
 
 	attempt, ent = self:AttemptAction()
 
@@ -95,6 +100,7 @@ function SWEP:PrimaryAttack()
 		StealCredits(owner, ent)
 	end
 
+	owner:LagCompensation(false)
 end
 
 function SWEP:SecondaryAttack()
@@ -218,6 +224,8 @@ if SERVER then
 			)
 
 			--events.Trigger(EVENT_CREDITFOUND, ply, ent, credits)
+
+			hook.Run("TTT2OnGiveFoundCredits", ply, rag, credits)
 
 			-- update clients so their UIs can be updated
 			net.Start("ttt2_credits_were_taken")
